@@ -1,15 +1,18 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { type Request, type Response, type NextFunction } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { sequelize } from './libs/db';
-import cookieParser from 'cookie-parser';
+import session from 'express-session';
+
 import authRoutes from './src/routes/auth.routes';
+import serviceRoutes from './src/routes/service.routes';
+import carRoutes from './src/routes/car.routes';
+import bookingRoutes from './src/routes/booking.routes';
+import { sequelize } from './libs/db';
 
 dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(
   cors({
     origin: 'http://localhost:3000',
@@ -19,27 +22,34 @@ app.use(
 
 app.use(express.json());
 
-// Routes
-app.use('/api/admin', authRoutes);
+app.use(
+  session({
+    secret: 'your_secret_key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, httpOnly: true }, // local dev
+  }),
+);
 
-// Test route
+app.use('/admin', authRoutes);
+app.use('/api/services', serviceRoutes);
+app.use('/api/cars', carRoutes);
+app.use('/api/appointments', bookingRoutes);
+
 app.get('/', (req: Request, res: Response) => {
   res.send('API is running...');
 });
 
-// 404 handler
 app.use((req: Request, res: Response) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// Global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Server error' });
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 const startServer = async () => {
   try {
