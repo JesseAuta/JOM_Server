@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS appointment_services CASCADE;
-DROP TABLE IF EXISTS appointments CASCADE;
+DROP TABLE IF EXISTS booking_services CASCADE;
+DROP TABLE IF EXISTS booking CASCADE;
 DROP TABLE IF EXISTS services CASCADE;
 DROP TABLE IF EXISTS car_models CASCADE;
 DROP TABLE IF EXISTS car_brands CASCADE;
@@ -41,7 +41,7 @@ CREATE TABLE services (
   description TEXT
 );
 
-CREATE TABLE appointments (
+CREATE TABLE booking (
   id SERIAL PRIMARY KEY,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
@@ -52,8 +52,8 @@ CREATE TABLE appointments (
   mechanic_id INT REFERENCES mechanics(id),
   car_year INT,
   service_id INT REFERENCES services(id) ON DELETE CASCADE,
-  appointment_date DATE NOT NULL,
-  appointment_time TIME NOT NULL,
+  booking_date DATE NOT NULL,
+  booking_time TIME NOT NULL,
   pickup_required BOOLEAN DEFAULT FALSE,
   delivery_required BOOLEAN DEFAULT FALSE,
   notes TEXT,
