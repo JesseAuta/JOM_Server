@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
 import authRoutes from './src/routes/auth.routes';
-import bookingRoutes from './src/routes/booking.rotes';
+import bookingRoutes from './src/routes/booking.routes';
 
 import session from 'express-session';
 import { sequelize } from './libs/db';
