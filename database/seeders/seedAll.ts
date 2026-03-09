@@ -1,9 +1,10 @@
 import { sequelize } from '../../libs/db';
-import {seedAdmins } from './admin.seeder';
+import { seedAdmins }from './admin.seeder';
 import { seedCarBrands } from './carbrand.seeder';
-import { seedCarModels } from './carmodel.seeder';
-import { seedServices } from './service.seeder';
-import { seedBooking } from './booking.seeder';
+import {  seedCarModels } from './carmodel.seeder';
+import {seedServices } from './service.seeder';
+import { seedBooking} from './booking.seeder';
+import seedMechanic from './mechanics.seeder';
 
 async function seedAll() {
   try {
@@ -11,6 +12,7 @@ async function seedAll() {
     console.log('DB connected');
 
     await seedAdmins();
+    await seedMechanic();
     await seedCarBrands();
     await seedCarModels();
     await seedServices();
