@@ -1,13 +1,13 @@
 import { Router } from 'express';
-// import {
-//   createAppointment,
-//   getAllAppointments,
-//   getAppointmentById,
-//   deleteAppointment,
-// } from '../services/booking.service';
+import {
+   createAppointmentService,
+     getAllAppointmentsService,
+  getAppointmentByIdService,
+  deleteAppointmentService,
+ } from '../services/booking.service';
 const router = Router();
-// router.post('/', createAppointment);
-// router.get('/', getAllAppointments);
-// router.get('/:id', getAppointmentById);
-// router.delete('/:id', deleteAppointment);
+router.post('/', createAppointmentService);
+router.get('/', getAllAppointmentsService);
+router.get('/:id', getAppointmentByIdService);
+router.delete('/:id', deleteAppointmentService);
 export default router;

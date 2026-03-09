@@ -130,4 +130,4 @@ Booking.init(
   },
 );
 
-export default Booking;
+export { Booking };
