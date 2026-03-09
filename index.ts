@@ -1,15 +1,22 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, {
+  type Request,
+  type Response,
+  type NextFunction,
+} from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { sequelize } from './libs/db';
 import cookieParser from 'cookie-parser';
+
 import authRoutes from './src/routes/auth.routes';
+import bookingRoutes from './src/routes/booking.rotes';
+
+import session from 'express-session';
+import { sequelize } from './libs/db';
 
 dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(
   cors({
     origin: 'http://localhost:3000',
@@ -18,28 +25,41 @@ app.use(
 );
 
 app.use(express.json());
+app.use(cookieParser());
+app.use('/admin', authRoutes);
+app.use('/admin/bookings', bookingRoutes);
 
-// Routes
-app.use('/api/admin', authRoutes);
+app.use(
+  session({
+    secret: 'your_secret_key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, httpOnly: true },
+  }),
+);
 
-// Test route
 app.get('/', (req: Request, res: Response) => {
   res.send('API is running...');
 });
 
-// 404 handler
 app.use((req: Request, res: Response) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// Global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Server error' });
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
+const port = 8000;
+
+try {
+  await sequelize.authenticate();
+  console.log('db connected');
+} catch (error) {
+  console.log(error);
+}
+await sequelize.sync({ alter: true });
 
 const startServer = async () => {
   try {
@@ -49,8 +69,8 @@ const startServer = async () => {
     await sequelize.sync({ alter: true });
     console.log('Models synced');
 
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
     });
   } catch (error) {
     console.error('Unable to connect to DB:', error);

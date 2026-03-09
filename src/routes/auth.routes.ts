@@ -9,7 +9,3 @@ authRoutes.route('/dashboard').get(isAdmin, (req, res) => {
   res.json({ message: 'Welcome to admin dashboard' });
 });
 export default authRoutes;
-
-export const config = {
-  matcher: ['/dashboard/:path*', '/bookings/:path*', '/settings/:path*'],
-};
