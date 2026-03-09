@@ -4,7 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun --watch index.ts"
+    "dev": "bun --watch index.ts",
+    "db:schema": "psql -U postgres -d garage_db -f db/schema.sql",
+    "db:seed": "psql -U postgres -d garage_db -f db/seed.sql",
+    "db:reset": "psql -U postgres -d garage_db -f db/reset.sql",
+    "seed:bookings": "ts-node ./database/seeders/booking.seeder.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
@@ -15,7 +19,7 @@
     "@types/express-session": "^1.18.2",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^25.3.3",
+    "@types/node": "^25.3.5",
     "pg": "^8.18.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7"
