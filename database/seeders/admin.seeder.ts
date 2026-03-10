@@ -8,7 +8,7 @@ export async function seedAdmins() {
 
     const admins = [
       { email: 'admin@jomauto.com', password: 'Admin123' },
-      { email: 'superadmin@jomauto.com', password: 'Admin321' },
+      
     ];
 
     await Admin.bulkCreate(admins);
