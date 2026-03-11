@@ -1,4 +1,3 @@
-// src/controllers/service.controller.ts
 import { type Request, type Response } from 'express';
 import { Service } from '../models/service.model';
 
@@ -28,34 +27,59 @@ export const createService = async (req: Request, res: Response) => {
 // PUT update service
 export const updateService = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = Number(req.params.id);
+
+    // validate id
+    if (isNaN(id)) {
+      return res.status(400).json({ message: 'Invalid service id' });
+    }
+
     const { name, price, description } = req.body;
 
     const service = await Service.findByPk(id);
-    if (!service) return res.status(404).json({ message: 'Service not found' });
+
+    if (!service) {
+      return res.status(404).json({ message: 'Service not found' });
+    }
 
     service.name = name ?? service.name;
     service.price = price ?? service.price;
     service.description = description ?? service.description;
 
     await service.save();
-    res.status(200).json(service);
+
+    return res.status(200).json(service);
   } catch (error) {
-    res.status(500).json({ message: 'Error updating service', error });
+    return res.status(500).json({
+      message: 'Error updating service',
+      error,
+    });
   }
 };
 
 // DELETE service
 export const deleteService = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = Number(req.params.id);
+
+    // validate id
+    if (isNaN(id)) {
+      return res.status(400).json({ message: 'Invalid service id' });
+    }
 
     const service = await Service.findByPk(id);
-    if (!service) return res.status(404).json({ message: 'Service not found' });
+
+    if (!service) {
+      return res.status(404).json({ message: 'Service not found' });
+    }
 
     await service.destroy();
-    res.status(200).json({ message: 'Service deleted successfully' });
+
+    return res.status(200).json({ message: 'Service deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting service', error });
+    return res.status(500).json({
+      message: 'Error deleting service',
+      error,
+    });
   }
 };
