@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './src/routes/auth.routes';
 import bookingRoutes from './src/routes/booking.routes';
 import servicesRoutes from './src/routes/service.routes';
+import mechanicsRoutes from './src/routes/mechanics.routes';
 
 import session from 'express-session';
 import { sequelize } from './libs/db';
@@ -30,7 +31,7 @@ app.use(cookieParser());
 app.use('/admin', authRoutes);
 app.use('/admin/bookings', bookingRoutes);
 app.use('/api/services', servicesRoutes);
-
+app.use('/api/mechanics', mechanicsRoutes);
 
 app.use(
   session({
