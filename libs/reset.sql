@@ -1,5 +1,5 @@
 TRUNCATE
-appointments,
+bookings,
 services,
 car_models,
 car_brands,

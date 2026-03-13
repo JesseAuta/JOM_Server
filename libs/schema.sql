@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS booking_services CASCADE;
+DROP TABLE IF EXISTS mechanic_services CASCADE;
 DROP TABLE IF EXISTS booking CASCADE;
 DROP TABLE IF EXISTS services CASCADE;
 DROP TABLE IF EXISTS car_models CASCADE;
@@ -19,6 +20,7 @@ CREATE TABLE mechanics (
   id SERIAL PRIMARY KEY,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
+  phone VARCHAR(50) NOT NULL,
   specialization VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -48,7 +50,9 @@ CREATE TABLE booking (
   email VARCHAR(255),
   phone VARCHAR(50) NOT NULL,
   address TEXT,
+  car_brand_id INT REFERENCES car_brands(id),
   car_model_id INT REFERENCES car_models(id),
+  number_plate VARCHAR(20),
   mechanic_id INT REFERENCES mechanics(id),
   car_year INT,
   service_id INT REFERENCES services(id) ON DELETE CASCADE,
@@ -58,4 +62,20 @@ CREATE TABLE booking (
   delivery_required BOOLEAN DEFAULT FALSE,
   notes TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE mechanic_services (
+  mechanic_id INT NOT NULL,
+  service_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+
+  PRIMARY KEY (mechanic_id, service_id),
+
+  FOREIGN KEY (mechanic_id)
+    REFERENCES mechanics(id)
+    ON DELETE CASCADE,
+
+  FOREIGN KEY (service_id)
+    REFERENCES services(id)
+    ON DELETE CASCADE
 );
