@@ -1,4 +1,3 @@
-
 import { sequelize } from '../../libs/db';
 import { DataTypes, Model } from 'sequelize';
 import type { Optional } from 'sequelize';
@@ -28,5 +27,5 @@ CarBrand.init(
     tableName: 'car_brands',
     timestamps: false,
     underscored: true,
-  }
+  },
 );
