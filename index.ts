@@ -12,6 +12,7 @@ import bookingRoutes from './src/routes/booking.routes';
 import servicesRoutes from './src/routes/service.routes';
 import mechanicsRoutes from './src/routes/mechanics.routes';
 import bookingBlockRoutes from './src/routes/booking-block.routes';
+import carRoutes from './src/routes/car.routes';
 
 import session from 'express-session';
 import { sequelize } from './libs/db';
@@ -34,6 +35,8 @@ app.use('/admin/bookings', bookingRoutes);
 app.use('/api/services', servicesRoutes);
 app.use('/api/mechanics', mechanicsRoutes);
 app.use('/admin/booking-blocks', bookingBlockRoutes);
+app.use('/api/cars', carRoutes);
+
 
 app.use(
   session({
