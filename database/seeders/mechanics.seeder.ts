@@ -1,4 +1,5 @@
-import { Mechanic } from '../../src/models/mechanic.models';
+
+import { Mechanic } from '../../src/models/mechanic.model';
 
 export default async function seedMechanic () {
   const mechanics = [

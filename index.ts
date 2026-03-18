@@ -7,6 +7,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
+import publicRoutes from './src/routes/public.routes';
 import authRoutes from './src/routes/auth.routes';
 import bookingRoutes from './src/routes/booking.routes';
 import servicesRoutes from './src/routes/service.routes';
@@ -36,7 +37,8 @@ app.use('/api/services', servicesRoutes);
 app.use('/api/mechanics', mechanicsRoutes);
 app.use('/admin/booking-blocks', bookingBlockRoutes);
 app.use('/api/cars', carRoutes);
-
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/public', publicRoutes);
 
 app.use(
   session({

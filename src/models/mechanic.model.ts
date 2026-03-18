@@ -6,7 +6,7 @@ interface MechanicAttributes {
   id: number;
   first_name: string;
   last_name: string;
-  phone: string;
+  phone: string | null;
   specialization?: string | null;
   created_at?: Date;
 }
@@ -44,7 +44,7 @@ Mechanic.init(
 
     phone: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
 
     specialization: {
