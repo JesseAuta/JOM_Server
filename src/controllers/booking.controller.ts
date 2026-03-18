@@ -34,6 +34,7 @@ export const createBooking = async (req: Request, res: Response) => {
       pickup_required,
       delivery_required,
       notes,
+      numberplate,
     } = req.body;
 
     if (!first_name || !last_name || !phone || !booking_date || !booking_time) {
@@ -58,6 +59,7 @@ export const createBooking = async (req: Request, res: Response) => {
       pickup_required,
       delivery_required,
       notes,
+      numberplate,
     });
 
     return res.status(201).json(booking);

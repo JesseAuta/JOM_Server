@@ -19,6 +19,7 @@ interface BookingAttributes {
   delivery_required?: boolean;
   notes?: string | null;
   created_at?: Date;
+  numberplate?: string | null;
 }
 
 type BookingCreationAttributes = Optional<
@@ -56,6 +57,7 @@ export class Booking
   declare delivery_required: boolean;
   declare notes: string | null;
   declare created_at: Date;
+  declare numberplate: string | null;
 }
 Booking.init(
   {
@@ -124,6 +126,11 @@ Booking.init(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
+    numberplate: {
+  type: DataTypes.STRING(20),
+  allowNull: true,
+},
+
   },
   {
     sequelize,
