@@ -40,24 +40,23 @@ export class Booking
   extends Model<BookingAttributes, BookingCreationAttributes>
   implements BookingAttributes
 {
-  public id!: number;
-  public first_name!: string;
-  public last_name!: string;
-  public email!: string | null;
-  public phone!: string;
-  public address!: string | null;
-  public car_model_id!: number | null;
-  public mechanic_id!: number | null;
-  public car_year!: number | null;
-  public service_id!: number | null;
-  public booking_date!: string;
-  public booking_time!: string;
-  public pickup_required!: boolean;
-  public delivery_required!: boolean;
-  public notes!: string | null;
-  public created_at!: Date;
+  declare id: number;
+  declare first_name: string;
+  declare last_name: string;
+  declare email: string | null;
+  declare phone: string;
+  declare address: string | null;
+  declare car_model_id: number | null;
+  declare mechanic_id: number | null;
+  declare car_year: number | null;
+  declare service_id: number | null;
+  declare booking_date: string;
+  declare booking_time: string;
+  declare pickup_required: boolean;
+  declare delivery_required: boolean;
+  declare notes: string | null;
+  declare created_at: Date;
 }
-
 Booking.init(
   {
     id: {
