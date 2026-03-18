@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "bun --watch index.ts",
+    "start": "bun index.ts",
     "db:schema": "psql -U postgres -d garage_db -f db/schema.sql",
     "db:seed": "psql -U postgres -d garage_db -f db/seed.sql",
     "db:reset": "psql -U postgres -d garage_db -f db/reset.sql",
