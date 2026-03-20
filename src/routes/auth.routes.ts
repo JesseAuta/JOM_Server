@@ -19,8 +19,8 @@ const router = Router();
 
 router.post('/login', loginAdmin);
 router.post('/logout', logoutAdmin);
-router.get('/check', isAdmin, (req, res) => {
-  res.status(200).json({ message: 'Admin verified' });
-});
+// router.get('/check', isAdmin, (req, res) => {
+//   res.status(200).json({ message: 'Admin verified' });
+// });
 
 export default router;
