@@ -118,10 +118,20 @@ dotenv.config();
 const app = express();
 const port = 8000;
 
-// Middleware
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'https://jom-gamma.vercel.app',
+];
+
 app.use(
   cors({
-    origin: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error(`Not allowed by CORS: ${origin}`));
+    },
     credentials: true,
   }),
 );
@@ -149,7 +159,7 @@ app.use('/admin/booking-blocks', isAdmin, bookingBlockRoutes);
 app.use('/admin/mechanics', isAdmin, mechanicsRoutes);
 
 // Optional: protect admin APIs
-app.use('/api/services', isAdmin, servicesRoutes);
+app.use('/api/services', servicesRoutes);
 app.use('/api/mechanics', isAdmin, mechanicsRoutes);
 
 // Public APIs
