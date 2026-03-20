@@ -1,5 +1,18 @@
 import { Sequelize } from 'sequelize';
 
-console.log('DB_URI =', process.env.DB_URI);
+export let sequelize: Sequelize;
 
-export const sequelize = new Sequelize(process.env.DB_URI as string);
+if (process.env.NODE_ENV === 'production') {
+    sequelize = new Sequelize(process.env.DB_URI as string, {
+        dialect: 'postgres',
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false  // needed for Render's self-signed cert
+            }
+        }
+    });
+} else {
+    sequelize = new Sequelize(process.env.DB_URI as string);
+
+}
