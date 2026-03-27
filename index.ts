@@ -27,10 +27,11 @@ dotenv.config();
 const app = express();
 const port = 8000;
 
+app.set('trust proxy', 1);
 
 app.use(
   cors({
-    origin: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
+    origin: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
     credentials: true,
   }),
 );
@@ -39,10 +40,15 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "defualt_secret",
+    secret: process.env.SESSION_SECRET || 'defualt_secret',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === "production", httpOnly: true, sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax", maxAge: 1000 * 60 * 60 * 24, },
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+      maxAge: 1000 * 60 * 60 * 24,
+    },
   }),
 );
 
