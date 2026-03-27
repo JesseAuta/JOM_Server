@@ -1,6 +1,6 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-export let sequelize;
+export let sequelize: Sequelize;
 
 if (process.env.NODE_ENV === 'production') {
     sequelize = new Sequelize(process.env.DB_URI as string, {
