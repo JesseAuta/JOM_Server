@@ -35,8 +35,8 @@ export const loginAdmin = async (req: Request, res: Response) => {
     // SET COOKIE
     res.cookie('token', token, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       path: '/',
       maxAge: 60 * 60 * 1000,
     });
