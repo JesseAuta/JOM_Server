@@ -1,5 +1,6 @@
 import { type Request, type Response } from 'express';
 import { Booking } from '../models/booking.models';
+import { sendEmail } from '../services/email';
 
 export const getBookings = async (req: Request, res: Response) => {
   try {
@@ -61,6 +62,10 @@ export const createBooking = async (req: Request, res: Response) => {
       notes,
       numberplate,
     });
+
+    if (email) {
+      await sendEmail(email, first_name, booking_date, booking_time);
+    }
 
     return res.status(201).json(booking);
   } catch (error) {
