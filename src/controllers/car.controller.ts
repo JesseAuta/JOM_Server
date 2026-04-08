@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { CarBrand } from '../models/carBrand.model';
-import { CarModel } from '../models/carModel.model';
+import { CarBrand } from '../models/carBrand.models';
+import { CarModel } from '../models/carModel.models';
 
 export const getBrands = async (req: Request, res: Response) => {
   try {
@@ -13,7 +13,9 @@ export const getBrands = async (req: Request, res: Response) => {
 
 export const getModelsByBrand = async (req: Request, res: Response) => {
   try {
-    const models = await CarModel.findAll({ where: { brand_id: req.params.brandId } });
+    const models = await CarModel.findAll({
+      where: { brand_id: req.params.brandId },
+    });
     res.status(200).json(models);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching models', error });

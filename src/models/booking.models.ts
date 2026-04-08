@@ -1,6 +1,9 @@
 import { DataTypes, Model } from 'sequelize';
 import type { Optional } from 'sequelize';
 import { sequelize } from '../../libs/db';
+import { CarModel } from './carModel.models';
+import { Service } from './service.models';
+import { Mechanic } from './mechanic.models';
 
 interface BookingAttributes {
   id: number;
@@ -35,6 +38,7 @@ type BookingCreationAttributes = Optional<
   | 'delivery_required'
   | 'notes'
   | 'created_at'
+  | 'numberplate'
 >;
 
 export class Booking
@@ -58,6 +62,11 @@ export class Booking
   declare notes: string | null;
   declare created_at: Date;
   declare numberplate: string | null;
+
+  // association fields
+  declare carModelData?: CarModel;
+  declare serviceData?: Service;
+  declare mechanicData?: Mechanic;
 }
 Booking.init(
   {
@@ -127,10 +136,9 @@ Booking.init(
       defaultValue: DataTypes.NOW,
     },
     numberplate: {
-  type: DataTypes.STRING(20),
-  allowNull: true,
-},
-
+      type: DataTypes.STRING(20),
+      allowNull: true,
+    },
   },
   {
     sequelize,
@@ -139,3 +147,19 @@ Booking.init(
     underscored: true,
   },
 );
+
+// associations
+Booking.belongsTo(CarModel, {
+  foreignKey: 'car_model_id',
+  as: 'carModelData',
+});
+
+Booking.belongsTo(Service, {
+  foreignKey: 'service_id',
+  as: 'serviceData',
+});
+
+Booking.belongsTo(Mechanic, {
+  foreignKey: 'mechanic_id',
+  as: 'mechanicData',
+});

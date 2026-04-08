@@ -1,6 +1,6 @@
 // testCarModels.ts
 
-import { CarModel } from '../src/models/carModel.model'; // path to CarModel
+import { CarModel } from '../src/models/carModel.models'; // path to CarModel
 import { sequelize } from './db';
 
 async function testModels() {
