@@ -1,5 +1,4 @@
 import { Booking } from '../models/booking.models';
-import { Op } from 'sequelize';
 
 export const isSlotAvailable = async (
   appointment_date: string,
@@ -18,7 +17,6 @@ export const findConflicts = async (
 ) => {
   return Booking.findAll({ where: { booking_date, booking_time } });
 };
-
 
 // NEW
 export const getBookedSlots = async (date: string): Promise<string[]> => {

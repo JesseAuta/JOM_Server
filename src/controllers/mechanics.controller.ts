@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { Mechanic } from '../models/mechanic.model';
+import { Mechanic } from '../models/mechanic.models';
 
 // GET /api/mechanics
 export const getMechanics = async (req: Request, res: Response) => {

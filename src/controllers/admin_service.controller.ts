@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { Service } from '../models/service.model';
+import { Service } from '../models/service.models';
 
 // GET all services
 export const getServices = async (req: Request, res: Response) => {

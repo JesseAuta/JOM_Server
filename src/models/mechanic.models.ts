@@ -20,12 +20,12 @@ export class Mechanic
   extends Model<MechanicAttributes, MechanicCreationAttributes>
   implements MechanicAttributes
 {
-  public id!: number;
-  public first_name!: string;
-  public last_name!: string;
-  public phone!: string;
-  public specialization!: string | null;
-  public created_at!: Date;
+  declare id: number;
+  declare first_name: string;
+  declare last_name: string;
+  declare phone: string;
+  declare specialization: string | null;
+  declare created_at: Date;
 }
 
 Mechanic.init(
