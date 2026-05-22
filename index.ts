@@ -31,7 +31,16 @@ app.set('trust proxy', 1);
 
 app.use(
   cors({
-    origin: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
+    origin: (origin, callback) => {
+      // Allow requests from localhost on any port, or from the NEXT_PUBLIC_API_URL if provided
+      if (!origin || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+        callback(null, true);
+      } else if (process.env.ALLOWED_ORIGINS?.split(',').includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   }),
 );
